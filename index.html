@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Typing Test</title>
+  <style>
+    :root {
+      --bg: #0f0f1a;
+      --card: #1a1a2e;
+      --accent: #4dd0e1;
+      --text: #e0e0e0;
+      --error: #ef5350;
+      --correct: #66bb6a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 800px;
+      background-color: var(--card);
+      padding: 2rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 0 25px rgba(77, 208, 225, 0.15);
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .timer {
+      font-size: 1.5rem;
+      color: var(--accent);
+    }
+
+    .text-display {
+      font-size: 1.5rem;
+      line-height: 2.5rem;
+      background-color: #121223;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      height: 180px;
+      overflow: hidden;
+      user-select: none;
+      letter-spacing: 0.5px;
+      position: relative;
+    }
+
+    .visible-text {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: clip;
+    }
+
+    .letter {
+      display: inline-block;
+      transition: color 0.2s;
+    }
+
+    .stats {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 1rem;
+    }
+
+    .highlight {
+      border-bottom: 2px solid var(--accent);
+    }
+    .typed{
+      color: rgba(56, 54, 54, 0.663);
+    }
+    .wrong{
+      color: var(--error);
+    }
+    #btn{
+      padding: 10px 20px;
+      border: none;
+      outline: none;
+      border-radius: 7px;
+      background: var(--accent);
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>Typing Test</h2>
+      <div class="timer" id="timer"></div>
+    </div>
+    <div class="text-display" id="text-display" tabindex="0">
+      <div class="visible-text" id="visible-text">Loading text...</div>
+    </div>
+    <div class="stats">
+      <div>WPM: <span id="wpm">0</span></div>
+      <div><button id="btn">Reset</button></div>
+      <div>Accuracy: <span id="accuracy">100%</span></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
