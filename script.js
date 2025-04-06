@@ -1,3 +1,4 @@
+//required variables 
 let text = "";
 let timeleft = 60;
 let count = 0;
@@ -14,6 +15,7 @@ let textarr = [];
 
 timebox.innerHTML = timeleft + "s";
 
+//This Function Fetch the text from api
 async function getText() {
   let response = await fetch(
     "https://fakerapi.it/api/v2/texts?_quantity=1&_characters=400"
@@ -22,6 +24,7 @@ async function getText() {
   text = data.data[0].content;
 }
 
+//This function is a time limit function for typing test 
 function timer() {
   const timerid = setInterval(() => {
     timeleft--;
@@ -35,6 +38,7 @@ function timer() {
   }, 1000);
 }
 
+//Calculates stats after the time is reached zero
 function calculateStats(){
    accuracy = Math.floor((correct/totaltyped)*100);
    wpm = Math.floor((totaltyped/5)/1)
@@ -42,6 +46,7 @@ function calculateStats(){
    wpmbox.innerHTML = wpm;
 }
 
+//reset function for new text, reseting stats and timer
 btn.addEventListener("click",async() => {
   timeleft = 60;
   timebox.innerHTML = timeleft + "s";
@@ -56,12 +61,15 @@ btn.addEventListener("click",async() => {
   main();
 })
 
+//this function is core of this project it handles the keystrokes
 function handleKeyStrokes(event) {
   spans = mainbox.querySelectorAll("span");
+  //starts timer when first letter is typed
   if (!Istimer) {
     Istimer = true;
     timer();
   }
+  //compare the keystroke with the character and react accordingly
   if (textarr[i] === event.key) {
     spans[i].classList.add("typed");
     correct++;
@@ -73,12 +81,13 @@ function handleKeyStrokes(event) {
     wrong++;
     i++;
   }
-  spans[i + 1]?.scrollIntoView({ behavior: "smooth", block: "center" });
+  spans[i + 1]?.scrollIntoView({ behavior: "smooth", block: "center" });// auto scroll when the previous text is typed
 
   totaltyped++;
   console.log("Total: ",totaltyped);
 }
 
+//main function cleans the text fetched from api and create a span element for each character
 async function main() {
   await getText();
   let cleanedtext = text
@@ -93,7 +102,7 @@ async function main() {
     span.textContent = char;
     mainbox.appendChild(span);
   });
-  mainbox.focus();
-  mainbox.addEventListener("keydown", handleKeyStrokes);
+  mainbox.focus();//focus on the text paragarph for keystroke reading
+  mainbox.addEventListener("keydown", handleKeyStrokes);//final call
 }
-main();
+main();// main call
